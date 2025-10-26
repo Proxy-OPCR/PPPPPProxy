@@ -103,7 +103,8 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`Proxy server running at port ${PORT}`));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
