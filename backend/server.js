@@ -12,7 +12,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-// ランダムUser-Agentでブロック回避
+// ランダムUser-Agent
 const userAgents = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
@@ -22,15 +22,52 @@ function randomUserAgent() {
   return userAgents[Math.floor(Math.random() * userAgents.length)];
 }
 
-// トップアクセス時
+// トップページ（UI + 背景）
 app.get('/', (req, res) => {
   res.send(`
-    <h2>Proxy server is running!</h2>
-    <p>Use <code>/proxy?url=対象URL</code> to access websites.</p>
+  <html>
+    <head>
+      <title>AI Proxy</title>
+      <style>
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background: linear-gradient(to right, #1f1c2c, #928dab);
+          color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          flex-direction: column;
+          text-align: center;
+        }
+        input, button {
+          padding: 10px;
+          margin: 5px;
+          border-radius: 5px;
+          border: none;
+        }
+        button {
+          background-color: #ff6b6b;
+          color: white;
+          cursor: pointer;
+        }
+        a {
+          color: #ffd700;
+          text-decoration: underline;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>AI Proxy Server</h1>
+      <p>プロキシURL: <code>/proxy?url=対象URL</code></p>
+      <p>AIテスト: <code>/ai?prompt=質問内容</code></p>
+    </body>
+  </html>
   `);
 });
 
-// プロキシ
+// プロキシエンドポイント
 app.get('/proxy', async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) return res.status(400).send('URL is required');
@@ -50,37 +87,17 @@ app.get('/proxy', async (req, res) => {
   }
 });
 
-// サーバー起動
-app.listen(PORT, () => {
-  console.log(`Proxy server running at port ${PORT}`);
+// 簡易AIエンドポイント（API不要）
+app.get('/ai', (req, res) => {
+  const prompt = req.query.prompt || 'こんにちは';
+  
+  // 本格AIではなく簡易サンプル応答
+  const responseText = `あなたの質問: "${prompt}" に対して、AIはこう答えます: "これはサンプル応答です。AI機能を拡張可能です。"`;
+  
+  res.send(responseText);
 });
 
-app.get('/', (req, res) => {
-  res.send(`
-    <html>
-      <head>
-        <style>
-          body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-          }
-          a {
-            color: #fff;
-            text-decoration: underline;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>AI Proxy Server</h1>
-        <p>Use <a href="/proxy?url=https://example.com">/proxy?url=対象URL</a> to access websites</p>
-      </body>
-    </html>
-  `);
+// サーバー起動
+app.listen(PORT, () => {
+  console.log(`Server running at port ${PORT}`);
 });
