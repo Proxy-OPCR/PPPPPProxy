@@ -2,6 +2,6 @@ services:
   - type: web
     name: ai-proxy
     env: node
-    buildCommand: npm install
-    startCommand: node backend/proxy.js
     plan: free
+    buildCommand: yarn install
+    startCommand: node backend/server.js
