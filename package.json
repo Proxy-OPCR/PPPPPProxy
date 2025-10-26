@@ -1,7 +1,7 @@
 {
-  "name": "ai-proxy",
+  "name": "ai-proxy-ui",
   "version": "1.0.0",
-  "description": "AI + Proxy server for Render",
+  "description": "AI + Proxy server with frontend UI",
   "type": "module",
   "main": "backend/server.js",
   "scripts": {
