@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: interstellar-proxy
+    name: ai-proxy
     env: node
     buildCommand: npm install
-    startCommand: node backend-node/server.js
+    startCommand: node backend/proxy.js
     plan: free
