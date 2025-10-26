@@ -54,3 +54,33 @@ app.get('/proxy', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Proxy server running at port ${PORT}`);
 });
+
+app.get('/', (req, res) => {
+  res.send(`
+    <html>
+      <head>
+        <style>
+          body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+          }
+          a {
+            color: #fff;
+            text-decoration: underline;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>AI Proxy Server</h1>
+        <p>Use <a href="/proxy?url=https://example.com">/proxy?url=対象URL</a> to access websites</p>
+      </body>
+    </html>
+  `);
+});
