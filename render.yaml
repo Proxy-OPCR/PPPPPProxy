@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ai-proxy
+    name: ai-proxy-ui
     env: node
     plan: free
     buildCommand: yarn install
