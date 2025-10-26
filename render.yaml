@@ -3,5 +3,5 @@ services:
     name: interstellar-proxy
     env: node
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node backend-node/server.js
     plan: free
