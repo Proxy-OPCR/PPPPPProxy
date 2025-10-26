@@ -7,18 +7,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Interstellar Proxy</h1>
-  <input type="text" id="url" placeholder="アクセスしたいURLを入力">
-  <button onclick="loadProxy()">アクセス</button>
-  <iframe id="frame"></iframe>
-
+<input type="text" id="search" placeholder="DuckDuckGoで検索">
+<button onclick="search()">検索</button>
   <script>
-    function loadProxy() {
-      const url = document.getElementById('url').value;
-      if (!url) return alert('URLを入力してください');
-      const iframe = document.getElementById('frame');
-      iframe.src = '/proxy?url=' + encodeURIComponent(url);
-    }
+function search() {
+  const query = document.getElementById('search').value;
+  if (!query) return alert('検索語を入力してください');
+  const iframe = document.getElementById('frame');
+  iframe.src = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
+}
+
   </script>
 </body>
 </html>
