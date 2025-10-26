@@ -35,3 +35,9 @@ const cookieStore = {};
 // 強化プロキシ
 app.get('/proxy', async (req, res) => {
   co
+
+        const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Proxy server running at port ${PORT}`);
+});
