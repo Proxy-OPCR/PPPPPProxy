@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interstellar Proxy</title>
-<style>
-body { font-family: Arial; text-align: center; margin-top: 50px; }
-input { width: 60%; padding: 10px; margin-bottom: 10px; }
-button { padding: 10px 20px; }
-iframe { width: 90%; height: 80vh; border: 1px solid #ccc; margin-top: 20px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interstellar Proxy</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Interstellar Proxy</h1>
-<input type="text" id="url" placeholder="アクセスしたいURLを入力">
-<button onclick="loadProxy()">アクセス</button>
-<iframe id="frame"></iframe>
+  <h1>Interstellar Proxy</h1>
+  <input type="text" id="url" placeholder="アクセスしたいURLを入力">
+  <button onclick="loadProxy()">アクセス</button>
+  <iframe id="frame"></iframe>
 
-<script>
-function loadProxy() {
-    const url = document.getElementById("url").value;
-    if (!url) return alert("URLを入力してください");
-    const iframe = document.getElementById("frame");
-    iframe.src = "/proxy?url=" + encodeURIComponent(url);
-}
-</script>
+  <script>
+    function loadProxy() {
+      const url = document.getElementById('url').value;
+      if (!url) return alert('URLを入力してください');
+      const iframe = document.getElementById('frame');
+      iframe.src = '/proxy?url=' + encodeURIComponent(url);
+    }
+  </script>
 </body>
 </html>
