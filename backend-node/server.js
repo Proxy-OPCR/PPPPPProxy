@@ -1,0 +1,53 @@
+import express from 'express';
+import fetch from 'node-fetch';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// User-Agent のランダム化
+const userAgents = [
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+  "Mozilla/5.0 (X11; Linux x86_64)"
+];
+
+function randomUserAgent() {
+  return userAgents[Math.floor(Math.random() * userAgents.length)];
+}
+
+// 強化プロキシ
+app.get('/proxy', async (req, res) => {
+  const targetUrl = req.query.url;
+  if (!targetUrl) return res.status(400).send('URL is required');
+
+  try {
+    const response = await fetch(targetUrl, {
+      headers: { 'User-Agent': randomUserAgent() },
+    });
+    let body = await response.text();
+
+    // HTML書き換え: iframeブロック回避
+    body = body.replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/gi, '');
+    body = body.replace(/<meta http-equiv="X-Frame-Options"[^>]*>/gi, '');
+    
+    res.send(body);
+  } catch (err) {
+    res.status(500).send('Error fetching URL: ' + err.message);
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
