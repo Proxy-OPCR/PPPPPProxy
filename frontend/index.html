@@ -1,1 +1,56 @@
-frontend/index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本格AI＋強化プロキシ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Interstellar Proxy & AI</h1>
+
+<div>
+  <input type="text" id="url" placeholder="アクセスしたいURL">
+  <button onclick="loadProxy()">アクセス</button>
+</div>
+
+<div>
+  <input type="text" id="search" placeholder="DuckDuckGoで検索">
+  <button onclick="searchDDG()">検索</button>
+</div>
+
+<div>
+  <input type="text" id="ai_input" placeholder="AIに話しかける">
+  <button onclick="talkAI()">送信</button>
+  <div id="ai_output"></div>
+</div>
+
+<iframe id="frame"></iframe>
+
+<script>
+function loadProxy(){
+    const url = document.getElementById('url').value;
+    if(!url) return alert('URLを入力してください');
+    document.getElementById('frame').src = '/proxy?url=' + encodeURIComponent(url);
+}
+
+function searchDDG(){
+    const query = document.getElementById('search').value;
+    if(!query) return alert('検索語を入力してください');
+    document.getElementById('frame').src = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
+}
+
+async function talkAI(){
+    const text = document.getElementById('ai_input').value;
+    if(!text) return;
+    try {
+        const res = await fetch('http://localhost:5000/ai?text=' + encodeURIComponent(text));
+        const data = await res.text();
+        document.getElementById('ai_output').innerText = data;
+    } catch(e){
+        document.getElementById('ai_output').innerText = "AIサーバーに接続できません";
+    }
+}
+</script>
+</body>
+</html>
