@@ -1,16 +1,17 @@
 {
   "name": "ai-proxy",
   "version": "1.0.0",
-  "description": "AI Proxy Application",
-  "main": "backend/server.js",
+  "description": "AI + Proxy server for Render",
   "type": "module",
+  "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/proxy.js"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
     "node-fetch": "^3.3.2",
     "cors": "^2.8.5",
     "cookie-parser": "^1.4.6"
-  }
+  },
+  "license": "MIT"
 }
