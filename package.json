@@ -2,8 +2,8 @@
   "name": "ai-proxy",
   "version": "1.0.0",
   "description": "AI Proxy Application",
+  "main": "backend/server.js",
   "type": "module",
-  "main": "backend/proxy.js",
   "scripts": {
     "start": "node backend/proxy.js"
   },
